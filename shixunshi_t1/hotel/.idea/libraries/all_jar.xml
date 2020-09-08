@@ -1,0 +1,21 @@
+<component name="libraryTable">
+  <library name="all_jar">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../hadoop_jar" />
+      <root url="file://$PROJECT_DIR$/../../spark_jar" />
+      <root url="file://$PROJECT_DIR$/../../scala_jar" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../../hadoop_jar" />
+      <root url="file://$PROJECT_DIR$/../../spark_jar" />
+      <root url="file://$PROJECT_DIR$/../../scala_jar" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/../../hadoop_jar" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../scala_jar" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../spark_jar" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../hadoop_jar" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../scala_jar" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../spark_jar" recursive="false" type="SOURCES" />
+  </library>
+</component>
