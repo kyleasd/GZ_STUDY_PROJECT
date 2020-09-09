@@ -1,4 +1,4 @@
-package com.xcn.spark
+package com.xcn.spark1
 
 import org.apache.spark.{SparkConf, SparkContext}
 
