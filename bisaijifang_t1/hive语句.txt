@@ -1,0 +1,19 @@
+创建cleandata表：
+	create table cleandata(company_name String,city String,require String,man Int,salary String,name String,detail String)row format delimited fields terminated by "|" stored as textfile;
+
+加载上次mr清洗后的结果至cleandata表：
+	load data inpath '/xcn/output/company/part-r-00000' into table cleandata;
+
+统计各岗位招聘数量，将结果写入cleantable表中：
+	创建：create table cleantable (name String,number Int) row format delimited fields terminated by "|" stored as textfile;
+	写入：insert overwrite table cleantable select name,sum(man) from cleandata group by name;
+
+查询“数据”相关岗位的技能要求，将查询结果写入table_bigdata表中：
+	创建：create table table_bigdata(name String,skill String) row format delimited fields terminated by "|" stored as textfile;
+	写入：insert overwrite table table_bigdata select name,detail from cleandata;
+
+在hive中执行keycount.sql脚本，并查看keycount表中所有核心技能的出现次数：
+	在linux终端：hive -f + sql脚本名称
+	在hive命令行：source + sql脚本名称
+
+
