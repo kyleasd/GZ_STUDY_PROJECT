@@ -1,0 +1,48 @@
+创建hive表格，名称为temp表：
+	create table temp(id String,area_county String,street String,committee String,name1 String,name2 String,id_number String,identity_categories String,physical_condition String,approval_time String,money String)row format delimited fields terminated by ',' stored as textfile;
+
+将数据导入temp表：
+	load data inpath '/hdfs路径' into table temp
+
+清除无效数据（无名字或身份证号）：
+	delete from temp where name1 = null or name2 = null or id_number = null
+
+每个列，统计缺失多少行:
+select count(id) from temp where id = '' or id is null;
+
+select count(area_county) from temp where area_county = '' or area_county is null;
+
+select count(street) from temp where street = '' or street is null;
+
+select count(committee) from temp where committee = '' or committe is null;
+
+select count(name1) from temp where name1 = '' or name1 is null;
+
+select count(name2) from temp where name2 = '' or name2 is null;
+
+select count(id_number) from temp where id_number = '' or id_number is null;
+
+select count(identity_categories) from temp where identity_categories  = '' or identity_categories is null;
+
+select count(physical_condition) from temp where physical_condition = '' or physical_condition is null;
+
+select count(approval_time) from temp where approval_time = '' or approval_time is null;
+
+select count(money) from temp where money = '' or money is null;
+
+输入查看有缺失值的数据行
+select * from temp where id = '' or id is null or area_county = '' or area_county is null or street = '' or street  is null or street = '' or street is null or committee = '' or committee is null or name1 = '' or name1 is null or name2 = '' or name2 is null or id_number = '' or id_number is null or identity_categories = '' or identity_categories is null or physical_condition = '' or physical_condition is null or approval_time = '' or approval_time is null or money = '' or money is null;
+
+6.查看下列数据集
+a）2013-2015低保人口的收入平均值
+select avg(money) from temp where approval_time like '%2015%' or approval_time like '%2014%' or approval_time like '%2013%';
+
+b）统计2016年各区的低保人口中失业人数
+select count(*) from temp where identity_categories like '%失业%';
+
+c）2015-2016年，“未登记失业人员”的平均收入
+select avg(money) from temp where identity_categories like '%未登记失业人员%' and  ( approval_time like '%2015%' or approval_time like '%2016%' );
+ 
+
+d）2014年各区具有“视力或听力残疾”的人数
+select area_county,count(*) from temp where approval_time like '%2014%' and (physical_condition like '%视力残疾%' or physical_condition like '%听力残疾%') group by area_county;
