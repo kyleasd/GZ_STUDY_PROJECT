@@ -1,0 +1,15 @@
+实验任务六：编写hive自定义函数，实现薪资均值的计算(下限和上限的均值)，并使用hive引入该自定义函数，统计各城市平均薪资
+
+自定义函数以后，我们将这个java文件打成jar包，然后在hive中引入该函数
+use recruitdata;
+add jar ‘jar包路径’
+create temporary function avgcost as 'com.xcn.t2.mr.RecruitTask6';
+
+创建好表table3_6，用来存放查询结果，字段为（城市、平均薪资）
+create table table3_6(city String,avg_cost String) row format delimited fields terminated by '|' sotred as textfile;
+
+使用hql语句统计各城市的平均薪资，并写入到table3_6中
+insert overwrite table3_6 select city,avg(avgcost(salary)) from rawdata group by city;
+
+查看表中的内容
+select * from table3_6;

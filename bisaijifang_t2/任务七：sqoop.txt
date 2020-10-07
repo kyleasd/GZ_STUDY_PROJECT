@@ -1,0 +1,22 @@
+实验任务七：使用hive统计各岗位招聘数量，并将结果通过sqoop导入到mysql中
+
+1 在hive的recruitdata库中创建表table3_7_1，用来存放查询得到的结果
+	create table table3_7_1 (name String, number String) row format delimited fields terminated by "|" stored as textfile;
+
+2 使用hql语句统计各岗位的招聘数量，并将结果保存到table3_7_1中
+	insert overwrite table table3_7_1 select name,count(*) from rawdata group by name;
+
+3 在mysql中创建recruitdata数据库以及table3_7_2表
+	create database recruitdata
+	use recruitdata;
+	create table table3_7_2(city varchar(255) not null, number varchar(255) not null) default charset=utf8;
+
+4 使用sqoop将hive的table3_7_1表中的数据导入到mysql的table3_7_2中
+	sqoop export --connect "jdbc:mysql://localhost:3306/recruitdata?useUnicode=true&characterEncoding=utf8" \
+	--username root \
+	--password Password123$ \
+	--table table3_7_2 -input-fields-terminated-by "|" \
+	--export-dir /user/hive/warehouse/recruitdata.db/table3_7_1  
+
+5 导入完后在mysql中查询岗位数量前5的数据
+	select * from table3_7_2 order by cast(number as signed) desc limit 5;

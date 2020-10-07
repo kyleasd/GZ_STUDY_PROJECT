@@ -1,0 +1,20 @@
+实验任务四：将清洗后的招聘数据导入到hive中
+
+（1）在hive中创建recruitdata库：
+	create database recruitdata
+
+（2）在recruitdata库中创建rawdata表：
+	字段（职位名称，公司名称，工作城市，工作需求，招聘人数，薪资水平，工作技术，发布时间，招聘性别，公司介绍，学历需求）
+	use recruitdata
+	create table rawdata(name String,com_name String,city String,requirement String,number String,salary String,skill String,time String,gender String,intro String,edu String) row format delimited fields terminated by "|" stored as textfile;
+
+（3）将清洗后的招聘数据导入rawdata表中
+	load data inpath 'hdfs路径' into table rawdata;
+
+（4）查询rawdata表前5行数据
+	select * from rawdata limit 5;
+
+（5）匹配职位名称中包含“大数据”的数据，将这些数据的工作技术字段抽取出来保存至hdfs指定目录中
+	insert overwrite directory 'hdfs路径' select skill from rawdata where name like '%大数据%';
+
+
