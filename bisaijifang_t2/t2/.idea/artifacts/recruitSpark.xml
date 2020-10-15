@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="recruitSpark">
-    <output-path>$PROJECT_DIR$/out/artifacts/recruitSpark</output-path>
-    <root id="archive" name="recruitSpark.jar">
-      <element id="module-output" name="t2" />
-    </root>
-  </artifact>
-</component>
